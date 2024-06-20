@@ -7,14 +7,9 @@ import debounce from 'lodash/debounce'
 import { useTheme } from './Theme-context';
 
 
-const SearchBar = (
-    {
-        fetchData, setDataName, onSelect = () => { }, onChange = () => { }
-    }
-) => {
+const SearchBar = ({ fetchData, setDataName, getLoaction }) => {
 
     const { theme } = useTheme()
-
 
     const [input, setInput] = useState('')
     const [suggestions, setSuggestions] = useState([])
@@ -28,7 +23,6 @@ const SearchBar = (
     const handleChange = (e) => {
         setInput(e.target.value)
         setOpen(true)
-        onChange(e.target.value)
     }
 
     const getSuggestion = async (input) => {
@@ -36,7 +30,6 @@ const SearchBar = (
         try {
             const result = await fetchData(input)
             setSuggestions(result)
-
         } catch (err) {
             setError(err)
             console.log(error, "error while fetching weather");
@@ -59,7 +52,6 @@ const SearchBar = (
 
     const suggestionCLick = (suggestion) => {
         setInput(suggestion)
-        onSelect(suggestion)
         setDataName(suggestion)
         setOpen(false)
         setSuggestions([])
@@ -77,7 +69,6 @@ const SearchBar = (
             setSelect(0)
             suggestionCLick(selected)
         }
-        console.log(e.keyCode);
     }
 
     const handleSubmit = (e) => {

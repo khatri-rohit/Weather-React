@@ -2,15 +2,10 @@ import { useState } from 'react';
 import Dark from './Dark'
 import SearchBar from './SearchBar'
 import Weather from './Weather'
-import { useTheme } from './Theme-context';
 
 const Home = () => {
 
-    const { theme, toggleTheme } = useTheme()
-    console.log(theme);
-
-
-    const [dataName, setDataName] = useState("Ajmer, Rajasthan, India")
+    const [dataName, setDataName] = useState("")
 
     async function fetchData(input) {
         const myHeaders = new Headers();
@@ -33,8 +28,8 @@ const Home = () => {
             <SearchBar
                 fetchData={fetchData}
                 setDataName={setDataName}
-                onSelect={(suggestion) => console.log(suggestion)}
-                onChange={(input) => { console.log(input) }}
+            // onSelect={(suggestion) => console.log(suggestion)}
+            // onChange={(input) => { console.log(input) }}
             // onBlur={(e) => { }}
             // onFocus={(e) => { }}
             />

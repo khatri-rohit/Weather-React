@@ -18,6 +18,7 @@ const Weather = ({ dataName }) => {
             if (result) {
                 setWeather({ ...result.data.values })
                 setLoading(false)
+                console.log(result);
             }
         } catch (err) {
             console.error(err + "Error accoured while fetching Data");
@@ -27,20 +28,22 @@ const Weather = ({ dataName }) => {
 
     useEffect(() => {
         fetchData()
-        setInterval(() => {
-            const date = new Date();
-            setDate(`${date.getDate()} ${date.toLocaleTimeString("en-us", {
-                month: "short",
-                hour: "2-digit",
-                minute: "2-digit",
-            })}`);
-        });
+        const date = new Date();
+        setDate(`${date.getDate()} ${date.toLocaleTimeString("en-us", {
+            month: "short",
+            hour: "2-digit",
+            minute: "2-digit",
+        })}`);
     }, [dataName])
 
 
 
     if (loading)
         return <p className="md:text-3xl text-xl text-center font-semibold">Loading Weather Data ...</p>
+
+    if (dataName === "") {
+        return <p className="text-2xl text-center font-semibold">Enter Your Location</p>
+    }
 
     return <>
 
