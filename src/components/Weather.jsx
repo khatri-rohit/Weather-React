@@ -5,11 +5,6 @@ const Weather = ({ dataName }) => {
     const [loading, setLoading] = useState(false)
     const [date, setDate] = useState('')
 
-    // https://api.tomorrow.io/v4/weather/realtime?location=toronto&apikey=xauunvDe8N05BUCjZLPVgywDQh0FnsxT
-    // K4bouBhk9LCjqpsGp4Rrtl9VOliv14ka
-    // xauunvDe8N05BUCjZLPVgywDQh0FnsxT
-    // m3NQQU9F2ZxcZH7GShheQcUBxBqPQGPD
-
     const fetchData = async () => {
         try {
             setLoading(true)
