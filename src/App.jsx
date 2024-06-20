@@ -2,6 +2,7 @@ import Home from './components/Home'
 import Error from './components/Error'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import './App.css'
+import { ThemeProvider } from './components/Theme-context'
 
 function App() {
 
@@ -18,7 +19,9 @@ function App() {
 
   return (
     <>
-      <RouterProvider router={router} />
+      <ThemeProvider >
+        <RouterProvider router={router} />
+      </ThemeProvider>
     </>
   )
 }

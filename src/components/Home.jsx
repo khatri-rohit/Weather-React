@@ -2,8 +2,13 @@ import { useState } from 'react';
 import Dark from './Dark'
 import SearchBar from './SearchBar'
 import Weather from './Weather'
+import { useTheme } from './Theme-context';
 
 const Home = () => {
+
+    const { theme, toggleTheme } = useTheme()
+    console.log(theme);
+
 
     const [dataName, setDataName] = useState("Ajmer, Rajasthan, India")
 

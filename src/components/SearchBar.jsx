@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { StageSpinner } from "react-spinners-kit";
 import Suggesstion from './Suggesstion'
 import debounce from 'lodash/debounce'
+import { useTheme } from './Theme-context';
 
 
 const SearchBar = (
@@ -11,6 +12,9 @@ const SearchBar = (
         fetchData, setDataName, onSelect = () => { }, onChange = () => { }
     }
 ) => {
+
+    const { theme } = useTheme()
+
 
     const [input, setInput] = useState('')
     const [suggestions, setSuggestions] = useState([])
@@ -97,7 +101,7 @@ const SearchBar = (
                 <button className="bg-blue-500 text-white px-4 py-3 md:w-60 w-[25%]  rounded-e-lg">Search</button>
             </form>
             {(suggestions.length > 0 || loading || error) && (
-                <div ref={suggest} className='absolute z-10 -my-5 bg-slate-50 w-full overflow-y-auto md:max-h-44 max-h-40 drop-shadow-xl'>
+                <div ref={suggest} className={theme === "dark" ? `absolute z-10 -my-5 bg-slate-900 w-full overflow-y-auto md:max-h-44 max-h-40 drop-shadow-xl` : `absolute z-10 -my-5 bg-slate-50 w-full overflow-y-auto md:max-h-44 max-h-40 drop-shadow-xl`}>
                     {error && <p className="text-red-300 font-bold p-2">{error}</p>}
                     {loading && <StageSpinner color="lightblue" size={50} />}
                     {
