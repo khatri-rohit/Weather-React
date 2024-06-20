@@ -40,8 +40,7 @@ const Weather = ({ dataName }) => {
 
 
     if (loading)
-        return <p className="text-3xl text-center">Loading Weather Data ...</p>
-
+        return <p className="md:text-3xl text-xl text-center font-semibold">Loading Weather Data ...</p>
 
     return <>
 
@@ -49,16 +48,16 @@ const Weather = ({ dataName }) => {
             weather &&
             <div className="border-2 p-3 px-6">
                 <div className="my-2">
-                    <p className="text-red-500">{date}</p>
+                    <p className="text-red-500 text-sm md:text-lg">{date}</p>
                 </div>
                 <div className="my-3">
-                    <p className="text-3xl font-bold">{dataName}</p>
-                    <p className="text-3xl font-bold">{Math.floor(weather?.temperature)}℃</p>
+                    <p className="md:text-3xl font-semibold">{dataName}</p>
+                    <p className="md:text-3xl text-xl font-bold">{Math.floor(weather?.temperature)}℃</p>
                 </div>
                 <div className="my-2">
-                    <p className="text-xl font-semibold">Feels like {Math.floor(weather?.temperature)}℃, haze. Haze</p>
+                    <p className="md:text-xl font-semibold">Feels like {Math.floor(weather?.temperature)}℃, haze. Haze</p>
                 </div>
-                <div className="border-s-4 border-red-700 p-3">
+                <div className="md:border-s-4 border-s-2 border-red-700 p-3">
                     <p className="text-xl">Humidity: {weather?.humidity}%</p>
                     <p className="text-xl">Wind: {weather?.windSpeed}m/s WSW</p>
                     <p className="text-xl">Visibility: {weather?.visibility}km</p>

@@ -19,11 +19,11 @@ const SearchBar = (
     const [open, setOpen] = useState(true)
     const suggest = useRef(null)
     const [select, setSelect] = useState(0)
+    const [selected, setSelected] = useState('')
 
     const handleChange = (e) => {
         setInput(e.target.value)
         setOpen(true)
-        console.log(input);
         onChange(e.target.value)
     }
 
@@ -51,7 +51,6 @@ const SearchBar = (
                 setOpen(false)
         }
         document.addEventListener("mousedown", handler)
-
     }, [input])
 
     const suggestionCLick = (suggestion) => {
@@ -61,48 +60,54 @@ const SearchBar = (
         setOpen(false)
         setSuggestions([])
     }
+
     const handleKeyboard = e => {
         if (e.keyCode === 38) { // Up
-            select > 0 ?
+            select > 0 && select < 5 ?
                 setSelect(prev => prev - 1) : select
         } else if (e.keyCode === 40) { // Down
-            select < 5 ?
+            select < 4 ?
                 setSelect(prev => prev + 1) : select
         } else if (e.keyCode === 13) {
-            setInput(input)
             setOpen(false)
+            setSelect(0)
+            suggestionCLick(selected)
         }
+        console.log(e.keyCode);
     }
 
     const handleSubmit = (e) => {
         e.preventDefault()
+        setInput(selected)
     }
 
     return (
         <div className='relative'>
-            <form className="border-2 my-5 flex items-center rounded-lg" onSubmit={handleSubmit}>
+            <form className="border-2 my-5 flex items-center justify-between rounded-lg" onSubmit={handleSubmit}>
                 <input
                     type="text"
                     placeholder="Your Location"
-                    className="p-2 outline-none w-full"
+                    className="p-2 outline-none md:w-full w-[75%]"
                     value={input}
                     onChange={handleChange}
                     onKeyDown={handleKeyboard}
                 // onBlur={onBlur}
                 // onFocus={onFocus}
                 />
-                <button className="bg-blue-500 text-white px-4 py-3 w-60 rounded-e-lg">Search</button>
+                <button className="bg-blue-500 text-white px-4 py-3 md:w-60 w-[25%]  rounded-e-lg">Search</button>
             </form>
             {(suggestions.length > 0 || loading || error) && (
-                <div ref={suggest} className='absolute z-10 -my-5 bg-slate-50 w-full overflow-y-auto max-h-44 drop-shadow-xl'>
+                <div ref={suggest} className='absolute z-10 -my-5 bg-slate-50 w-full overflow-y-auto md:max-h-44 max-h-40 drop-shadow-xl'>
                     {error && <p className="text-red-300 font-bold p-2">{error}</p>}
                     {loading && <StageSpinner color="lightblue" size={50} />}
                     {
                         open && <Suggesstion
                             suggestions={suggestions}
                             highlight={input}
+                            setValue={setInput}
                             onSuggSelect={suggestionCLick}
-                            select={select} />
+                            select={select}
+                            setSelected={setSelected} />
                     }
                 </div>
             )}

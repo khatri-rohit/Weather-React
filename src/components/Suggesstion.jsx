@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const Suggesstion = ({ suggestions, highlight, onSuggSelect, select }) => {
+const Suggesstion = ({ suggestions, highlight, onSuggSelect, select, setSelected }) => {
 
     const getHightlight = (text, highlight) => {
         const parts = text.split(new RegExp(`(${highlight})`, "gi"))
@@ -14,15 +14,19 @@ const Suggesstion = ({ suggestions, highlight, onSuggSelect, select }) => {
         )
     }
 
+    useEffect(() => {
+        suggestions.filter((suggestion, index) => select == index ? setSelected(suggestion.description) : null)
+    }, [select])
 
     return (
         <>
             {
                 suggestions.map((suggestion, index) => {
                     return (
-                        <p className={select === index ? `text-lg p-3 hover:bg-slate-300 bg-slate-300` : `text-lg p-3 hover:bg-slate-300 `}
+                        <p className={select === index ? `md:text-lg text-sm md:p-3 hover:bg-slate-300 bg-slate-300 p-2 ` : `md:text-lg text-sm md:p-3 hover:bg-slate-300 p-2 `}
                             onClick={() => onSuggSelect(suggestion.description)}
-                            key={index}>
+                            key={index}
+                        >
                             {getHightlight(suggestion.description, highlight)}
                         </p>
                     )
