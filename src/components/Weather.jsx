@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 const Weather = ({ dataName }) => {
     const [weather, setWeather] = useState([])
     const [loading, setLoading] = useState(false)
-    const [date, setDate] = useState('Jan 1, 1:00am')
+    const [date, setDate] = useState('')
 
     // https://api.tomorrow.io/v4/weather/realtime?location=toronto&apikey=xauunvDe8N05BUCjZLPVgywDQh0FnsxT
     // K4bouBhk9LCjqpsGp4Rrtl9VOliv14ka
@@ -18,7 +18,6 @@ const Weather = ({ dataName }) => {
             if (result) {
                 setWeather({ ...result.data.values })
                 setLoading(false)
-                console.log(result);
             }
         } catch (err) {
             console.error(err + "Error accoured while fetching Data");
@@ -35,8 +34,6 @@ const Weather = ({ dataName }) => {
             minute: "2-digit",
         })}`);
     }, [dataName])
-
-
 
     if (loading)
         return <p className="md:text-3xl text-xl text-center font-semibold">Loading Weather Data ...</p>

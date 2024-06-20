@@ -17,7 +17,7 @@ const SearchBar = ({ fetchData, setDataName, getLoaction }) => {
     const [error, setError] = useState(null)
     const [open, setOpen] = useState(true)
     const suggest = useRef(null)
-    const [select, setSelect] = useState(0)
+    const [select, setSelect] = useState(1)
     const [selected, setSelected] = useState('')
 
     const handleChange = (e) => {
